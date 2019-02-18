@@ -39,13 +39,13 @@ passport.use(new GoogleStrategy({
     callbackURL: 'http://localhost:3030/auth/google/callback',
     passReqToCallback   : true
   },
-  function(accessToken, refreshToken, profile, cb) {
+  function(request ,accessToken, refreshToken, profile, done) {
     console.log(profile)
   }
 ));
 
 app.get('/auth/google',
-passport.authenticate('google', { scope:["profile"] }));
+passport.authenticate('google', { scope:['profile','email'] }));
 
 app.get('/auth/google/callback', 
 passport.authenticate('google', { failureRedirect: '/login' }),
